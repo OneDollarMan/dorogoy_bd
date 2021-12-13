@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Склад - {{title}}</title>
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <header>
+            <ul class="header_menu">
+                <li><a href="/">Главная</a></li>
+                <li><a href="/suppliers">Поставщики</a></li>
+                <li><a href="/products">Товары</a></li>
+                <li><a href="/customers">Покупатели</a></li>
+                <li><a href="/sales">Продажи</a></li>
+            </ul>
+
+            <div class="login_div">
+                {% if session.loggedin %}
+                    {% if session.role == 1 %}
+                        <a href="/drivers/{{session.id}}">{{ session.username }}</a>
+                    {% else %}
+                {{ session.username }}
+                    {% endif %}
+                    <a href="/logout">Выйти</a>
+                {% else %}
+                    <a href="/register">Регистрация</a>
+                    <a href="/login">Авторизация</a>
+                {% endif %}
+
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        <h2>Уведомления</h2>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </header>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

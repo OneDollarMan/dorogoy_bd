@@ -1,0 +1,207 @@
+body {
+    margin: 0;
+    font: 11pt sans-serif;
+}
+
+ul {
+    padding: 0;
+}
+
+header {
+    display: flex;
+}
+
+a, a:visited {
+    color: black;
+    display: block;
+    text-decoration: none;
+}
+
+details:hover {
+    cursor: pointer;
+}
+
+p {
+    margin: 0;
+    text-indent: 30pt;
+}
+
+.red_button {
+    cursor: pointer;
+    border: 2px solid red;
+    padding: 5pt 20pt;
+    background: white;
+    color: red
+}
+
+.red_button:hover {
+    background: red;
+    color: white;
+}
+
+.header_menu {
+    padding: 0;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 120pt 120pt 120pt 120pt 120pt;
+    height: 30pt;
+}
+
+.header_menu a:hover {
+    border-radius: 2pt;
+    cursor: pointer;
+    border-bottom: 2px solid black;
+    background: lightgrey;
+}
+
+.header_menu li {
+    line-height: 30pt;
+    text-align: center;
+    list-style-type: none;
+    box-sizing: border-box;
+}
+
+.login_div {
+    position: absolute;
+    right: 10pt;
+    line-height: 30pt;
+    display: flex;
+    font-size: 9pt;
+}
+
+.login_div a {
+    margin: 0 10pt;
+}
+
+.login_div a:hover {
+    color: grey;
+}
+
+.flashes {
+    margin: 0;
+    list-style-type: none;
+    position: absolute;
+    right: 0pt;
+    top: 50pt;
+    background: #ffe0e6;
+}
+
+.flashes li {
+    padding: 5pt 10pt;
+    border-bottom: 2px solid pink;
+}
+
+h2 {
+    margin: 0;
+    background: pink;
+    padding: 5pt 10pt;
+    font-size: 11pt;
+}
+
+.login {
+    line-height: 30pt;
+}
+
+.login form {
+
+}
+
+.login input {
+
+}
+
+#content {
+    width: 600pt;
+    margin: 0 auto;
+    margin-top: 100pt;
+}
+
+h1 {
+    margin: 0;
+    padding: 5pt;
+    text-align: center;
+    border-bottom: 1px solid red;
+
+}
+
+.form_div {
+    margin-top: 8pt;
+}
+
+.form_div form {
+    display: table;
+    margin: 0 auto;
+}
+
+details {
+    padding: 10pt;
+    border-bottom: 1px solid red;
+}
+
+.table_div {
+
+}
+
+.table_div table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table_div th {
+}
+
+.table_div td {
+    text-align: center;
+    line-height: 30pt;
+    padding: 0;
+}
+
+.table_div tr:nth-child(odd) {
+    background: tomato;
+}
+
+.table_div tr:hover {
+    background: lightgrey;
+}
+
+.navigation_div {
+    background: tomato;
+}
+
+.navigation_div ul {
+    margin: 0;
+}
+
+.navigation_div li {
+    list-style-type: none;
+    display: table;
+    padding: 5pt;
+}
+
+.navigation_div a:hover {
+    color: maroon;
+}
+
+.text_div {
+    background: lightgrey;
+    padding: 15pt;
+}
+
+.object_info {
+    padding: 10pt;
+    display:flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.info_table {
+    border: 2px solid lightgrey;
+}
+
+.info_table td, caption {
+    padding: 5pt 10pt;
+}
+
+.info_table caption {
+    background: lightgrey;
+}

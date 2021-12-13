@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Регистрация</h1>
+
+<div class="login">
+    <form action="" method="post" name="register">
+        {{ form.csrf_token }}
+        {{ form.username(placeholder='Логин') }}
+        {{ form.fio(placeholder='ФИО') }}
+        {{ form.password(placeholder='Пароль') }}
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+</div>
+
+{% endblock %}

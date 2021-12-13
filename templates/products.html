@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Список товаров</h1>
+
+{% if session.role == 2 %}
+<details>
+    <summary>Добавить товар</summary>
+    <div class="form_div">
+        <form method="post" action="products/add">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <select name="id">
+                <option disabled selected>Выберите поставщика</option>
+                {% for s in ss %}
+                    <option name="id" value="{{s[0]}}">{{s[1]}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="name" placeholder="Название">
+            <select name="uid">
+                <option disabled selected>Выберите единицу измерения</option>
+                {% for u in us %}
+                    <option name="uid" value="{{u[0]}}">{{u[1]}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="buy_price" placeholder="Цена закупки">
+            <input type="text" name="sell_price" placeholder="Цена продажи">
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+</details>
+
+<details>
+    <summary>Приход</summary>
+    <div class="form_div">
+        <form method="post" action="products/add_amount">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <select name="id">
+                <option disabled selected>Выберите продукт</option>
+                {% for p in ps %}
+                    <option name="id" value="{{p[0]}}">{{p[2]}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="amount" placeholder="Количество">
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+</details>
+{% endif %}
+
+<div class="table_div">
+    <table>
+        <tr>
+           <th>Номер</th><th>Поставщик</th><th>Название</th><th>Количество</th><th>Цена закупки</th><th>Цена продажи</th>
+        </tr>
+        {% for p in ps %}
+            <tr>
+                <td><a href="/products/{{p[0]}}">{{p[0]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[8]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[2]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[4]}} {{p[12]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[5]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[6]}}</a></td>
+            </tr>
+        {% endfor %}
+</table>
+</div>
+
+{% endblock %}

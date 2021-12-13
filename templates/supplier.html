@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="navigation_div">
+    <ul>
+        <li><a href="/suppliers">< Назад</a></li>
+    </ul>
+</div>
+
+<div class="object_info">
+    <table class="info_table">
+        <caption>Информация о поставщике</caption>
+        <tr>
+           <td>Номер</td><td>{{s[0]}}</td>
+        </tr>
+        <tr>
+           <td>Название фирмы</td><td>{{s[1]}}</td>
+        </tr>
+        <tr>
+           <td>Адрес</td><td>{{s[2]}}</td>
+        </tr>
+        <tr>
+            <td>Телефон</td><td>{{s[3]}}</td>
+        </tr>
+
+    </table>
+    <table class="info_table">
+        <caption>Список товаров</caption>
+        {% for p in ps %}
+        <tr><td><a href="/products/{{p[0]}}">{{p[2]}}</a></td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<a href="/suppliers/rm/{{s[0]}}">
+    <button class="red_button" name="id" value="{{s[0]}}">Удалить</button>
+</a>
+
+
+{% endblock %}

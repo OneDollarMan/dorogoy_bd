@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="navigation_div">
+    <ul>
+        <li><a href="/customers">< Назад</a></li>
+    </ul>
+</div>
+
+<div class="object_info">
+    <table class="info_table">
+        <caption>Информация о покупателе</caption>
+        <tr>
+            <td>Номер</td>
+            <td>{{c[0]}}</td>
+        </tr>
+        <tr>
+            <td>Название фирмы</td>
+            <td>{{c[1]}}</td>
+        </tr>
+        <tr>
+            <td>Адрес</td>
+            <td>{{c[2]}}</td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td>{{c[3]}}</td>
+        </tr>
+    </table>
+
+    <table class="info_table">
+        <caption>Список покупок</caption>
+        {% for s in ss %}
+        <tr>
+            <td><a href="/sales/{{s[0]}}">{{s[4]}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<a href="/customer/rm/{{c[0]}}">
+    <button class="red_button" name="id" value="{{c[0]}}">Удалить</button>
+</a>
+
+{% endblock %}

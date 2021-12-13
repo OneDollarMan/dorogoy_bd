@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Список продаж</h1>
+
+{% if session.role == 2 %}
+<details>
+    <summary>Добавить продажу</summary>
+    <div class="form_div">
+        <form method="post" action="sales/add">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="datetime-local" name="datetime">
+            <select name="cid">
+                <option disabled selected>Выберите покупателя</option>
+                {% for c in cs %}
+                    <option name="cid" value="{{c[0]}}">{{c[1]}}</option>
+                {% endfor %}
+            </select>
+            <select name="pid">
+                <option disabled selected>Выберите товар</option>
+                {% for p in ps %}
+                    <option name="pid" value="{{p[0]}}">{{p[2]}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="amount" placeholder="Количество">
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+</details>
+{% endif %}
+
+<div class="table_div">
+    <table>
+        <tr>
+           <th>Номер</th><th>Дата</th><th>Покупатель</th><th>Товар</th><th>Количество</th>
+        </tr>
+        {% for sale in sales %}
+            <tr>
+                <td><a href="/sales/{{sale[0]}}">{{sale[0]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[4]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[13]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[7]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[3]}} {{sale[17]}}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

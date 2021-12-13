@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Список покупателей</h1>
+
+{% if session.role == 2 %}
+<details>
+    <summary>Добавить покупателя</summary>
+    <div class="form_div">
+        <form method="post" action="customers/add">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="text" name="name" placeholder="Название фирмы">
+            <input type="text" name="address" placeholder="Адрес">
+            <input type="text" name="phone" placeholder="Телефон">
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+</details>
+{% endif %}
+
+<div class="table_div">
+    <table>
+        <tr>
+           <th>Номер</th><th>Название фирмы</th><th>Адрес</th><th>Телефон</th>
+        </tr>
+        {% for c in cs %}
+            <tr>
+                <td><a href="/customers/{{c[0]}}">{{c[0]}}</a></td>
+                <td><a href="/customers/{{c[0]}}">{{c[1]}}</a></td>
+                <td><a href="/customers/{{c[0]}}">{{c[2]}}</a></td>
+                <td><a href="/customers/{{c[0]}}">{{c[3]}}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
