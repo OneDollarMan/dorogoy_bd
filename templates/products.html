@@ -21,8 +21,8 @@
                     <option name="uid" value="{{u[0]}}">{{u[1]}}</option>
                 {% endfor %}
             </select>
-            <input type="text" name="buy_price" placeholder="Цена закупки">
-            <input type="text" name="sell_price" placeholder="Цена продажи">
+            <input type="number" name="buy_price" placeholder="Цена закупки">
+            <input type="number" name="sell_price" placeholder="Цена продажи">
             <input type="submit" value="Добавить">
         </form>
     </div>
@@ -39,7 +39,7 @@
                     <option name="id" value="{{p[0]}}">{{p[2]}}</option>
                 {% endfor %}
             </select>
-            <input type="text" name="amount" placeholder="Количество">
+            <input type="number" step="any" name="amount" placeholder="Количество">
             <input type="submit" value="Добавить">
         </form>
     </div>
@@ -54,9 +54,9 @@
         {% for p in ps %}
             <tr>
                 <td><a href="/products/{{p[0]}}">{{p[0]}}</a></td>
-                <td><a href="/products/{{p[0]}}">{{p[8]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[9]}}</a></td>
                 <td><a href="/products/{{p[0]}}">{{p[2]}}</a></td>
-                <td><a href="/products/{{p[0]}}">{{p[4]}} {{p[12]}}</a></td>
+                <td><a href="/products/{{p[0]}}">{{p[4]}} {{p[14]}}</a></td>
                 <td><a href="/products/{{p[0]}}">{{p[5]}}</a></td>
                 <td><a href="/products/{{p[0]}}">{{p[6]}}</a></td>
             </tr>

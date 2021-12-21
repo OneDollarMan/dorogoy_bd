@@ -2,7 +2,8 @@
 {% block content %}
 <h1>Список продаж</h1>
 
-{% if session.role == 2 %}
+{% if session.role %}
+{% if session.role >= 1 %}
 <details>
     <summary>Добавить продажу</summary>
     <div class="form_div">
@@ -21,11 +22,12 @@
                     <option name="pid" value="{{p[0]}}">{{p[2]}}</option>
                 {% endfor %}
             </select>
-            <input type="text" name="amount" placeholder="Количество">
+            <input type="number" step="any" name="amount" placeholder="Количество">
             <input type="submit" value="Добавить">
         </form>
     </div>
 </details>
+{% endif %}
 {% endif %}
 
 <div class="table_div">
@@ -37,9 +39,9 @@
             <tr>
                 <td><a href="/sales/{{sale[0]}}">{{sale[0]}}</a></td>
                 <td><a href="/sales/{{sale[0]}}">{{sale[4]}}</a></td>
-                <td><a href="/sales/{{sale[0]}}">{{sale[13]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[14]}}</a></td>
                 <td><a href="/sales/{{sale[0]}}">{{sale[7]}}</a></td>
-                <td><a href="/sales/{{sale[0]}}">{{sale[3]}} {{sale[17]}}</a></td>
+                <td><a href="/sales/{{sale[0]}}">{{sale[3]}} {{sale[19]}}</a></td>
             </tr>
         {% endfor %}
     </table>

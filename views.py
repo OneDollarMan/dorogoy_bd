@@ -1,4 +1,5 @@
 import datetime
+import hashlib
 
 from flask import url_for, render_template, request, redirect, abort, send_from_directory, g, flash, session
 from __init__ import app
@@ -20,7 +21,7 @@ def login():
         return redirect(url_for('index'))
     form = forms.LoginForm()
     if form.validate_on_submit():
-        user = gr.login_user(form.login.data, form.password.data)
+        user = gr.login_user(form.login.data, hashlib.md5(form.password.data.encode('utf-8')).hexdigest())
         if user:
             flash('Вы авторизовались!')
             session['loggedin'] = True
@@ -39,23 +40,7 @@ def logout():
     session.pop('id', None)
     session.pop('username', None)
     session.pop('role', None)
-    session.pop('driverid', None)
     return redirect(url_for('index'))
-
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    if session.get('loggedin'):
-        return redirect(url_for('index'))
-    form = forms.RegForm()
-    if form.validate_on_submit():
-        if gr.register_user(form.username.data, form.fio.data, form.password.data):
-            flash('Регистрация успешна!')
-            return redirect(url_for('index'))
-        else:
-            flash('Логин уже занят!')
-            return redirect(url_for('register'))
-    return render_template('register.html', title='Регистрация', form=form)
 
 
 @app.route("/suppliers")
@@ -69,6 +54,7 @@ def supplier(supplierid):
         return render_template('supplier.html', title="Поставщик", s=gr.get_supplier(supplierid),
                                ps=gr.get_products_of_supplier(supplierid))
     else:
+        flash("Недостаточно прав")
         return redirect(url_for('suppliers'))
 
 
@@ -89,7 +75,7 @@ def suppliers_add():
 def suppliers_rm(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         if id:
-            gr.remove_supplier(id)
+            gr.rm_supplier(id)
     return redirect(url_for("suppliers"))
 
 
@@ -103,19 +89,22 @@ def product(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         return render_template('product.html', title="Товар", p=gr.get_product(id), ss=gr.get_sales_of_product(id))
     else:
+        flash("Недостаточно прав")
         return redirect(url_for('products'))
 
 
 @app.route("/products/add", methods=['POST'])
 def products_add():
     if session.get('role') == gr.ROLE_SUPERVISOR:
-        p = request.form['id']
+        p = request.form.get('id')
         n = request.form['name']
-        u = request.form['uid']
-        b = request.form['buy_price']
-        s = request.form['sell_price']
-        if p and n and u:
+        u = request.form.get('uid')
+        b = int(request.form['buy_price'])
+        s = int(request.form['sell_price'])
+        if p and n and u and b > 0 and s > 0:
             gr.add_product(p, n, u, b, s)
+        else:
+            flash("Введите корректные данные")
     return redirect(url_for("products"))
 
 
@@ -123,7 +112,7 @@ def products_add():
 def products_add_amount():
     if session.get('role') == gr.ROLE_SUPERVISOR:
         i = int(request.form['id'])
-        a = float(request.form['amount'])
+        a = float(request.form.get('amount'))
         if i and a > 0:
             gr.add_product_amount(i, a)
         else:
@@ -135,7 +124,7 @@ def products_add_amount():
 def products_remove(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         if id:
-            gr.remove_product(id)
+            gr.rm_product(id)
     return redirect(url_for("products"))
 
 
@@ -161,6 +150,7 @@ def customer(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         return render_template('customer.html', title="Покупатель", c=c, ss=gr.get_sales_of_customer(id))
     else:
+        flash("Недостаточно прав")
         return redirect(url_for('customers'))
 
 
@@ -168,7 +158,7 @@ def customer(id):
 def customers_remove(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         if id:
-            gr.remove_customer(id)
+            gr.rm_customer(id)
     return redirect(url_for("customers"))
 
 
@@ -183,19 +173,22 @@ def sale(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         return render_template('sale.html', title="Продажа", s=s)
     else:
+        flash("Недостаточно прав")
         return redirect(url_for('sales'))
 
 
 @app.route("/sales/add", methods=['POST'])
 def sales_add():
-    if session.get('role') == gr.ROLE_SUPERVISOR:
+    if session.get('role') >= gr.ROLE_SELLER:
         dt = request.form['datetime']
-        c = int(request.form['cid'])
-        p = int(request.form['pid'])
+        c = request.form.get('cid')
+        p = request.form.get('pid')
         a = float(request.form['amount'])
         if dt and c and p and a:
-            if not gr.add_sale(d=dt, c=c, p=p, a=a):
+            if not gr.add_sale(d=dt, c=int(c), p=int(p), a=a):
                 flash("Не хватает товара")
+        else:
+            flash("Введите корректные данные")
     return redirect(url_for("sales"))
 
 
@@ -203,7 +196,7 @@ def sales_add():
 def sales_remove(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         if id:
-            gr.rm_sale(id)
+            gr.remove_sale(id)
     return redirect(url_for("sales"))
 
 
