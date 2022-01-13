@@ -7,6 +7,7 @@ import forms
 from StorageRepo import *
 
 gr = StorageRepo()
+STR_LEN = 45
 
 
 @app.route("/")
@@ -64,7 +65,7 @@ def suppliers_add():
         n = request.form['name']
         a = request.form['address']
         p = request.form['phone']
-        if n and a and p:
+        if 0 < len(n) < STR_LEN and 0 < len(a) < STR_LEN and 0 < len(p) < STR_LEN:
             gr.add_supplier(n, a, p)
         else:
             flash("Введите корректные данные")
@@ -99,10 +100,15 @@ def products_add():
         p = request.form.get('id')
         n = request.form['name']
         u = request.form.get('uid')
-        b = int(request.form['buy_price'])
-        s = int(request.form['sell_price'])
-        if p and n and u and b > 0 and s > 0:
-            gr.add_product(p, n, u, b, s)
+        b = request.form['buy_price']
+        s = request.form['sell_price']
+        if p and 0 < len(n) < STR_LEN and u and 0 < len(b) < STR_LEN and 0 < len(s) < STR_LEN:
+            b = int(b)
+            s = int(s)
+            if 0 < b < 10000 and 0 < s < 10000:
+                gr.add_product(p, n, u, b, s)
+            else:
+                flash("Введите цену больше 0 или меньше 10000")
         else:
             flash("Введите корректные данные")
     return redirect(url_for("products"))
@@ -111,12 +117,16 @@ def products_add():
 @app.route("/products/add_amount", methods=['POST'])
 def products_add_amount():
     if session.get('role') == gr.ROLE_SUPERVISOR:
-        i = int(request.form['id'])
-        a = float(request.form.get('amount'))
-        if i and a > 0:
-            gr.add_product_amount(i, a)
+        i = request.form.get('id')
+        a = request.form['amount']
+        if i and 0 < len(a) < STR_LEN:
+            a = float(a)
+            if 0 < a < 10000:
+                gr.add_product_amount(int(i), a)
+            else:
+                flash("Введите число больше 0 или меньше 10000")
         else:
-            flash("Введите число больше 0")
+            flash("Заполните форму")
     return redirect(url_for("products"))
 
 
@@ -139,8 +149,10 @@ def customers_add():
         n = request.form['name']
         a = request.form['address']
         p = request.form['phone']
-        if n and a and p:
+        if 0 < len(n) < STR_LEN and 0 < len(a) < STR_LEN and 0 < len(p) < STR_LEN:
             gr.add_customer(n, a, p)
+        else:
+            flash("Заполните форму")
     return redirect(url_for("customers"))
 
 
@@ -154,7 +166,7 @@ def customer(id):
         return redirect(url_for('customers'))
 
 
-@app.route("/customer/rm/<int:id>")
+@app.route("/customers/rm/<int:id>")
 def customers_remove(id):
     if session.get('role') == gr.ROLE_SUPERVISOR:
         if id:
@@ -183,10 +195,14 @@ def sales_add():
         dt = request.form['datetime']
         c = request.form.get('cid')
         p = request.form.get('pid')
-        a = float(request.form['amount'])
-        if dt and c and p and a:
-            if not gr.add_sale(d=dt, c=int(c), p=int(p), a=a):
-                flash("Не хватает товара")
+        a = request.form['amount']
+        if dt and c and p and 0 < len(a) < STR_LEN:
+            a = float(a)
+            if a > 0:
+                if not gr.add_sale(d=dt, c=int(c), p=int(p), a=a):
+                    flash("Не хватает товара")
+            else:
+                flash("Введите количество больше 0")
         else:
             flash("Введите корректные данные")
     return redirect(url_for("sales"))

@@ -31,7 +31,8 @@ p {
     border: 2px solid red;
     padding: 5pt 20pt;
     background: white;
-    color: red
+    color: red;
+    margin: 5pt;
 }
 
 .red_button:hover {
@@ -40,41 +41,32 @@ p {
 }
 
 .header_menu {
-    padding: 0;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 120pt 120pt 120pt 120pt 120pt;
-    height: 30pt;
+    margin: 5pt auto;
+    display: flex;
+    border: 2px solid black;
+}
+
+.header_menu a {
+    padding: 5pt;
 }
 
 .header_menu a:hover {
-    border-radius: 2pt;
     cursor: pointer;
-    border-bottom: 2px solid black;
-    background: lightgrey;
+    background: lightgreen;
 }
 
 .header_menu li {
-    line-height: 30pt;
     text-align: center;
     list-style-type: none;
     box-sizing: border-box;
 }
 
-.login_div {
-    position: absolute;
-    right: 10pt;
-    line-height: 30pt;
-    display: flex;
-    font-size: 9pt;
+.bg {
+    border-left: 2px solid black;
 }
 
-.login_div a {
-    margin: 0 10pt;
-}
-
-.login_div a:hover {
-    color: grey;
+.li_text {
+    padding: 5pt;
 }
 
 .flashes {
@@ -111,26 +103,42 @@ h2 {
 }
 
 #content {
-    width: 600pt;
+    display: flex;
     margin: 0 auto;
-    margin-top: 100pt;
+    width: fit-content;
+}
+
+.text {
+    width: 600pt;
 }
 
 h1 {
     margin: 0;
     padding: 5pt;
     text-align: center;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid black;
+}
 
+h3 {
+    margin: 10pt 0;
+    text-align: center;
 }
 
 .form_div {
-    margin-top: 8pt;
+    margin: 5pt;
+    border: 2px solid black;
+    padding: 5pt;
+    height: min-content;
 }
 
 .form_div form {
-    display: table;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
+}
+
+input, select {
+    margin-bottom: 5pt;
 }
 
 details {
@@ -139,7 +147,9 @@ details {
 }
 
 .table_div {
-
+    border: 2px solid black;
+    margin: 5pt;
+    height: min-content;
 }
 
 .table_div table {
@@ -147,17 +157,13 @@ details {
     width: 100%;
 }
 
-.table_div th {
-}
-
-.table_div td {
+.table_div a, th {
     text-align: center;
-    line-height: 30pt;
-    padding: 0;
+    padding: 4pt;
 }
 
 .table_div tr:nth-child(odd) {
-    background: tomato;
+    background: lightgreen;
 }
 
 .table_div tr:hover {
@@ -195,7 +201,9 @@ details {
 }
 
 .info_table {
-    border: 2px solid lightgrey;
+    border: 2px solid black;
+    margin: 5pt;
+    height: fit-content;
 }
 
 .info_table td, caption {
@@ -203,5 +211,7 @@ details {
 }
 
 .info_table caption {
-    background: lightgrey;
+    background: lightgreen;
+    border: 2px solid black;
+    border-bottom: none;
 }

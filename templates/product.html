@@ -1,50 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="navigation_div">
-    <ul>
-        <li><a href="/products">< Назад</a></li>
-    </ul>
-</div>
+<table class="info_table">
+    <caption>Информация о товаре</caption>
+    <tr>
+        <td>Номер</td>
+        <td>{{p[0]}}</td>
+    </tr>
+    <tr>
+        <td>Поставщик</td>
+        <td><a href="/suppliers/{{p[1]}}">{{p[9]}}</a></td>
+    </tr>
+    <tr>
+        <td>Название</td>
+        <td>{{p[2]}}</td>
+    </tr>
+    <tr>
+        <td>Количество</td>
+        <td>{{p[4]}} {{p[14]}}</td>
+    </tr>
+    <tr>
+        <td>Цена закупки</td>
+        <td>{{p[5]}}</td>
+    </tr>
+    <tr>
+        <td>Цена продажи</td>
+        <td>{{p[6]}}</td>
+    </tr>
+</table>
 
-<div class="object_info">
-    <table class="info_table">
-        <caption>Информация о товаре</caption>
-        <tr>
-            <td>Номер</td>
-            <td>{{p[0]}}</td>
-        </tr>
-        <tr>
-            <td>Поставщик</td>
-            <td><a href="/suppliers/{{p[1]}}">{{p[9]}}</a></td>
-        </tr>
-        <tr>
-            <td>Название</td>
-            <td>{{p[2]}}</td>
-        </tr>
-        <tr>
-            <td>Количество</td>
-            <td>{{p[4]}} {{p[14]}}</td>
-        </tr>
-        <tr>
-            <td>Цена закупки</td>
-            <td>{{p[5]}}</td>
-        </tr>
-        <tr>
-            <td>Цена продажи</td>
-            <td>{{p[6]}}</td>
-        </tr>
-    </table>
-
-    <table class="info_table">
-        <caption>Список продаж</caption>
-        {% for s in ss %}
-        <tr>
-            <td><a href="/sales/{{s[0]}}">{{s[4]}}</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<table class="info_table">
+    <caption>Список продаж</caption>
+    {% for s in ss %}
+    <tr>
+        <td><a href="/sales/{{s[0]}}">{{s[4]}}</a></td>
+    </tr>
+    {% endfor %}
+</table>
 
 <a href="/product/rm/{{p[0]}}">
     <button class="red_button" name="id" value="{{p[0]}}">Удалить</button>

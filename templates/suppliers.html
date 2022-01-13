@@ -1,36 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Список поставщиков</h1>
 
 {% if session.role == 2 %}
-<details>
-    <summary>Добавить поставщика</summary>
-    <div class="form_div">
-        <form method="post" action="suppliers/add">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <input type="text" name="name" placeholder="Название фирмы">
-            <input type="text" name="address" placeholder="Адрес">
-            <input type="text" name="phone" placeholder="Номер телефона">
-            <input type="submit" value="Добавить">
-        </form>
-    </div>
-</details>
+<div class="form_div">
+    <h3>Добавить поставщика</h3>
+    <form method="post" action="suppliers/add">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="name" placeholder="Название фирмы">
+        <input type="text" name="address" placeholder="Адрес">
+        <input type="number" name="phone" placeholder="Номер телефона">
+        <input type="submit" value="Добавить">
+    </form>
+</div>
 {% endif %}
 
 <div class="table_div">
+    <h1>Список поставщиков</h1>
     <table>
         <tr>
-           <th>Номер</th><th>Название фирмы</th><th>Адрес</th><th>Номер телефона</th>
+            <th>Номер</th>
+            <th>Название фирмы</th>
+            <th>Адрес</th>
+            <th>Номер телефона</th>
         </tr>
         {% for s in ss %}
-            <tr>
-                <td><a href="/suppliers/{{s[0]}}">{{s[0]}}</a></td>
-                <td><a href="/suppliers/{{s[0]}}">{{s[1]}}</a></td>
-                <td><a href="/suppliers/{{s[0]}}">{{s[2]}}</a></td>
-                <td><a href="/suppliers/{{s[0]}}">{{s[3]}}</a></td>
-            </tr>
+        <tr>
+            <td><a href="/suppliers/{{s[0]}}">{{s[0]}}</a></td>
+            <td><a href="/suppliers/{{s[0]}}">{{s[1]}}</a></td>
+            <td><a href="/suppliers/{{s[0]}}">{{s[2]}}</a></td>
+            <td><a href="/suppliers/{{s[0]}}">{{s[3]}}</a></td>
+        </tr>
         {% endfor %}
-</table>
+    </table>
 </div>
 
 {% endblock %}
