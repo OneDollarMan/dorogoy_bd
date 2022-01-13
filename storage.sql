@@ -18,6 +18,8 @@
 --
 -- Table structure for table `customer`
 --
+CREATE SCHEMA 'storage'
+USING 'storage'
 
 DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
